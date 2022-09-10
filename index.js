@@ -1,9 +1,32 @@
 import characters from "./data/characters.json" assert { type: "json" };
 
-/* ADD/REMOVE CARDS */
+/* ELEMENTS */
 const characterContainer = document.getElementById("character-container");
+const genderFilter = document.getElementById("gender");
+const speciesFilter = document.getElementById("species");
+const statusFilter = document.getElementById("status");
+const search = document.getElementById("search");
+
+/* Event Listeners */
+
+/* CONSTANTS */
+
+const SELECT_ALL_TEXT = "Select all";
+const MINIMUM_NUMBER_OF_CHARACTERS = 4;
+
+/* ADD/REMOVE CARDS */
 
 const createCards = (characters) => {
+  cleanCardContainer();
+
+  if (characters.length === 0) {
+    const textElement = document.createElement("p");
+    const text = document.createTextNode("No character matches the filter");
+    textElement.appendChild(text);
+    characterContainer.appendChild(textElement);
+    return;
+  }
+
   characters.forEach((character) => {
     const { name, image, status, species, gender } = character;
     const card = document.createElement("div");
@@ -57,33 +80,108 @@ const cleanCardContainer = () => {
 // initialize the page
 createCards(characters);
 
-/* SEARCH */
-const filteredCharactersBySearch = (e) => {
-  console.log(e.target.value);
-  const MINIMUM_NUMBER_OF_CHARACTERS = 4;
-  if (
-    e.target.value === "" ||
-    e.target.value.length < MINIMUM_NUMBER_OF_CHARACTERS
-  ) {
-    cleanCardContainer();
-    createCards(characters);
-    return;
-  }
-
-  cleanCardContainer();
-  const searchWord = e.target.value;
-  const filtered = characters.filter((character) =>
-    character.name.toLowerCase().includes(searchWord.toLowerCase())
-  );
-  console.log(filtered);
-  createCards(filtered);
+const filterMap = {
+  gender: genderFilter,
+  status: statusFilter,
+  species: speciesFilter,
 };
-
-const search = document.getElementById("search");
-search.addEventListener("input", filteredCharactersBySearch);
 
 /* FILTER */
 
-const genderFilter = document.getElementById("gender");
-const speciesFilter = document.getElementById("species");
-const statusFilter = document.getElementById("status");
+const filterAllParams = () => {
+  let filtered = [...filteredCharactersBySearch(search.value)];
+
+  for (const filterType in filterMap) {
+    filtered = filterBy(filtered, filterMap[filterType], filterType);
+  }
+
+  createCards(filtered);
+};
+
+/* SEARCH */
+const filteredCharactersBySearch = (value) => {
+  if (value === "" || value.length < MINIMUM_NUMBER_OF_CHARACTERS) {
+    return characters;
+  }
+  const searchWord = value;
+  const filtered = characters.filter((character) =>
+    character.name.toLowerCase().includes(searchWord.toLowerCase())
+  );
+
+  return filtered;
+};
+
+search.addEventListener("input", filterAllParams);
+
+/* SELECT */
+
+const getOptions = () => {
+  let gender = characters.map((character) => character.gender);
+  let status = characters.map((character) => character.status);
+  let species = characters.map((character) => character.species);
+
+  const uniqeGenders = new Set(gender);
+  const uniqeStatus = new Set(status);
+  const uniqeSpecies = new Set(species);
+
+  gender = Array.from(uniqeGenders);
+  status = Array.from(uniqeStatus);
+  species = Array.from(uniqeSpecies);
+
+  return {
+    gender,
+    status,
+    species,
+  };
+};
+
+const createOptionNodes = (filterOptions, appendToElement) => {
+  // select all
+  const selectAllOption = document.createElement("option");
+  selectAllOption.setAttribute("value", null);
+  const optionText = document.createTextNode(SELECT_ALL_TEXT);
+  selectAllOption.appendChild(optionText);
+  appendToElement.appendChild(selectAllOption);
+
+  filterOptions.forEach((option) => {
+    const optionNode = document.createElement("option");
+    optionNode.setAttribute("value", option);
+    const optionText = document.createTextNode(
+      option.charAt(0).toUpperCase() + option.slice(1)
+    );
+    optionNode.appendChild(optionText);
+    appendToElement.appendChild(optionNode);
+  });
+};
+
+const createOptions = () => {
+  const options = getOptions();
+  for (const optionType in options) {
+    createOptionNodes(options[optionType], filterMap[optionType]);
+  }
+};
+
+createOptions();
+
+const filterBy = (array, filter, filterType) => {
+  console.log(array, filter, filterType);
+  return array.filter((character) => {
+    // console.log(filter.options[filter.selectedIndex].text.toLowerCase());
+    console.log("here");
+    if (
+      filter.options[filter.selectedIndex].text.toLowerCase() ===
+      SELECT_ALL_TEXT.toLowerCase()
+    ) {
+      return true;
+    }
+
+    return (
+      character[filterType].toLowerCase() ===
+      filter.options[filter.selectedIndex].text.toLowerCase()
+    );
+  });
+};
+
+for (const filter in filterMap) {
+  filterMap[filter].addEventListener("input", filterAllParams);
+}
