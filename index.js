@@ -13,13 +13,6 @@ const filterMap = {
   species: speciesFilter,
 };
 
-/* Event Listeners */
-
-search.addEventListener("input", filterAllParams);
-for (const filter in filterMap) {
-  filterMap[filter].addEventListener("input", filterAllParams);
-}
-
 /* CONSTANTS */
 
 const SELECT_ALL_TEXT = "Select all";
@@ -184,3 +177,10 @@ const filterBy = (array, filter, filterType) => {
     );
   });
 };
+
+/* Event Listeners */
+
+search.addEventListener("input", filterAllParams);
+for (const filter in filterMap) {
+  filterMap[filter].addEventListener("input", filterAllParams);
+}
