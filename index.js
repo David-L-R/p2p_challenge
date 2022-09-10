@@ -7,7 +7,18 @@ const speciesFilter = document.getElementById("species");
 const statusFilter = document.getElementById("status");
 const search = document.getElementById("search");
 
+const filterMap = {
+  gender: genderFilter,
+  status: statusFilter,
+  species: speciesFilter,
+};
+
 /* Event Listeners */
+
+search.addEventListener("input", filterAllParams);
+for (const filter in filterMap) {
+  filterMap[filter].addEventListener("input", filterAllParams);
+}
 
 /* CONSTANTS */
 
@@ -80,12 +91,6 @@ const cleanCardContainer = () => {
 // initialize the page
 createCards(characters);
 
-const filterMap = {
-  gender: genderFilter,
-  status: statusFilter,
-  species: speciesFilter,
-};
-
 /* FILTER */
 
 const filterAllParams = () => {
@@ -110,8 +115,6 @@ const filteredCharactersBySearch = (value) => {
 
   return filtered;
 };
-
-search.addEventListener("input", filterAllParams);
 
 /* SELECT */
 
@@ -181,7 +184,3 @@ const filterBy = (array, filter, filterType) => {
     );
   });
 };
-
-for (const filter in filterMap) {
-  filterMap[filter].addEventListener("input", filterAllParams);
-}
