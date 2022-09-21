@@ -48,3 +48,21 @@ $ git push
 - Red: Each chosen character has a "remove" button. Pressing on it will remove it from the "chosen" list and put it back into the main list
 
 ## Bugs
+
+### Bug 1 - Cards are not showing up
+
+No card is shown!
+
+There is supposed to be a function that shows the cards already, but for some reason it does not work.
+
+### Bug 2 - Filters have too many options
+
+When opening the dropdown of each filter, there are too many options.
+
+For example, in the Gender dropdown, instead of:
+
+- male
+- female
+- unknown
+
+We have many male... many females...
