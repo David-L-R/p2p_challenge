@@ -23,6 +23,7 @@ let chosenIds = [];
 /* ADD/REMOVE CARDS */
 
 const printCards = (characters) => {
+  console.log("print cards");
   characters.forEach((character) => {
     const { id, name, image, status, species, gender, points } = character;
     const card = document.createElement("div");
@@ -185,25 +186,25 @@ const createCards = () => {
 
   let filtered = [...characters];
 
-  filtered = filtered.filter(
-    (character) => character.gender === genderFilter.value
-  );
+  // filtered = filtered.filter(
+  //   (character) => character.gender === genderFilter.value
+  // );
 
-  filtered = filtered.filter(
-    (character) => character.status === statusFilter.value
-  );
+  // filtered = filtered.filter(
+  //   (character) => character.status === statusFilter.value
+  // );
 
-  filtered = filtered.filter(
-    (character) => character.species === speciesFilter.value
-  );
+  // filtered = filtered.filter(
+  //   (character) => character.species === speciesFilter.value
+  // );
 
-  filtered = filtered.filter((character) =>
-    character.name.toLowerCase().includes(search.value.toLowerCase())
-  );
+  // filtered = filtered.filter((character) =>
+  //   character.name.toLowerCase().includes(search.value.toLowerCase())
+  // );
 
-  filtered.filter((character) => {
-    !chosenIds.includes(character.id);
-  });
+  // filtered.filter((character) => {
+  //   !chosenIds.includes(character.id);
+  // });
 
   if (filtered.length === 0) {
     const textElement = document.createElement("p");
@@ -219,6 +220,8 @@ const createCards = () => {
   addEventListenerToChooseButtons();
   addEventListenerToRemoveButtons();
 };
+
+createCards();
 
 const chooseCharacter = (e) => {
   chosenIds.push(parseInt(e.target.id));
