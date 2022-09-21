@@ -18,6 +18,9 @@ const filterMap = {
 const SELECT_ALL_TEXT = "Select all";
 const MINIMUM_NUMBER_OF_CHARACTERS = 4;
 
+/* Variables */
+let chosenIds = [];
+
 /* ADD/REMOVE CARDS */
 
 const printCards = (characters) => {
@@ -87,9 +90,7 @@ const filterAllParams = () => {
     filtered = filterBy(filtered, filterMap[filterType], filterType);
   }
 
-  console.log(filtered);
-
-  return filtered;
+  return filtered.filter((character) => !chosenIds.includes(character.id));
 };
 
 /* SEARCH */
@@ -155,8 +156,8 @@ const createOptions = () => {
 
 createOptions();
 
+/* FILTER */
 const filterBy = (array, filter, filterType) => {
-  // console.log(array, filter, filterType);
   return array.filter((character) => {
     return (
       filter.options[filter.selectedIndex].text.toLowerCase() ===
@@ -167,39 +168,8 @@ const filterBy = (array, filter, filterType) => {
   });
 };
 
-const createCards = () => {
-  cleanCardContainer();
-
-  const filtered = characters.filter(
-    (character) => !chosenIds.includes(character.id)
-  );
-  if (filtered.length === 0 && chosenIds.length !== characters.length) {
-    const textElement = document.createElement("p");
-    const text = document.createTextNode("No character matches the filter");
-    textElement.appendChild(text);
-    characterContainer.appendChild(textElement);
-    return;
-  }
-  printCards(filterAllParams());
-};
-
-// initialize the page
-let chosenIds = [];
-createCards(characters);
-
-/* Event Listeners */
-
-// search.addEventListener("input", filterAllParams);
-search.addEventListener("input", createCards);
-for (const filter in filterMap) {
-  // filterMap[filter].addEventListener("input", filterAllParams);
-  filterMap[filter].addEventListener("input", createCards);
-}
-
-/* Chosen */
-
+/* CHOSEN SECTION */
 const chosenContainer = document.getElementById("chosen-container");
-// let chosenIds = [];
 
 const cleanChosenContainer = () => {
   chosenContainer.innerHTML = "";
@@ -234,29 +204,7 @@ const createChosenCards = (chosenIds) => {
   });
 };
 
-const chooseCharacter = (e) => {
-  chosenIds.push(parseInt(e.target.id));
-  const uniqeIds = new Set(chosenIds);
-  chosenIds = Array.from(uniqeIds);
-  createChosenCards(chosenIds);
-  createCards();
-  addEventListenerToChooseButtons();
-  addEventListenerToRemoveButtons();
-};
-
-const removeCharacter = (e) => {
-  console.log(e.target.id);
-  chosenIds = chosenIds.filter(
-    (chosenId) => chosenId !== parseInt(e.target.id)
-  );
-  console.log(chosenIds);
-  createChosenCards(chosenIds);
-
-  createCards(filtered);
-  addEventListenerToChooseButtons();
-  addEventListenerToRemoveButtons();
-};
-
+// EVENT LISTENERS
 const addEventListenerToChooseButtons = () => {
   const chooseButtons = document.getElementsByClassName("choose-button");
   Array.from(chooseButtons).forEach((button) => {
@@ -271,5 +219,48 @@ const addEventListenerToRemoveButtons = () => {
   });
 };
 
-addEventListenerToChooseButtons();
-addEventListenerToRemoveButtons();
+// CREATE CARDS
+const createCards = () => {
+  cleanCardContainer();
+
+  const filtered = filterAllParams();
+
+  if (filtered.length === 0 && chosenIds.length !== characters.length) {
+    const textElement = document.createElement("p");
+    const text = document.createTextNode("No character matches the filter");
+    textElement.appendChild(text);
+    characterContainer.appendChild(textElement);
+    addEventListenerToChooseButtons();
+    addEventListenerToRemoveButtons();
+    return;
+  }
+
+  printCards(filtered);
+  addEventListenerToChooseButtons();
+  addEventListenerToRemoveButtons();
+};
+
+const chooseCharacter = (e) => {
+  chosenIds.push(parseInt(e.target.id));
+  const uniqeIds = new Set(chosenIds);
+  chosenIds = Array.from(uniqeIds);
+  createChosenCards(chosenIds);
+  createCards();
+};
+
+const removeCharacter = (e) => {
+  chosenIds = chosenIds.filter(
+    (chosenId) => chosenId !== parseInt(e.target.id)
+  );
+
+  createChosenCards(chosenIds);
+  createCards();
+};
+
+//  INITIALIZE
+createCards(characters);
+
+search.addEventListener("input", createCards);
+for (const filter in filterMap) {
+  filterMap[filter].addEventListener("input", createCards);
+}
