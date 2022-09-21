@@ -109,23 +109,26 @@ const filteredCharactersBySearch = (value) => {
 /* SELECT */
 
 const getOptions = () => {
-  let gender = characters.map((character) => character.gender);
-  let status = characters.map((character) => character.status);
-  let species = characters.map((character) => character.species);
-
-  const uniqeGenders = new Set(gender);
-  const uniqeStatus = new Set(status);
-  const uniqeSpecies = new Set(species);
-
-  gender = Array.from(uniqeGenders);
-  status = Array.from(uniqeStatus);
-  species = Array.from(uniqeSpecies);
-
-  return {
-    gender,
-    status,
-    species,
+  const options = {
+    gender: {},
+    status: {},
+    species: {},
   };
+
+  const { gender, status, species } = options;
+
+  characters.forEach((character) => {
+    gender[character.gender] = 1;
+    status[character.status] = 1;
+    species[character.species] = 1;
+  });
+
+  const result = {};
+  for (const option in options) {
+    result[option] = Object.keys(options[option]);
+  }
+
+  return result;
 };
 
 const createOptionNodes = (filterOptions, appendToElement) => {
