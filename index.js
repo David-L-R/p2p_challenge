@@ -32,7 +32,7 @@ const createCards = (characters) => {
   }
 
   characters.forEach((character) => {
-    const { name, image, status, species, gender } = character;
+    const { id, name, image, status, species, gender, points } = character;
     const card = document.createElement("div");
     card.classList.add("card");
 
@@ -58,9 +58,15 @@ const createCards = (characters) => {
     const genderText = document.createTextNode(`Sex: ${gender}`);
     genderElement.appendChild(genderText);
 
+    const pointsElement = document.createElement("p");
+    const pointsText = document.createTextNode(`Points: ${points}`);
+    pointsElement.appendChild(pointsText);
+
     const buttonContainer = document.createElement("div");
     buttonContainer.classList.add("button-container");
     const button = document.createElement("button");
+    button.setAttribute("id", `${id}`);
+    button.classList.add("choose-button");
     const buttonText = document.createTextNode("Choose");
     button.appendChild(buttonText);
     buttonContainer.appendChild(button);
@@ -71,6 +77,7 @@ const createCards = (characters) => {
     textContainer.appendChild(statusElement);
     textContainer.appendChild(speciesElement);
     textContainer.appendChild(genderElement);
+    textContainer.appendChild(pointsElement);
     textContainer.appendChild(buttonContainer);
 
     characterContainer.appendChild(card);
@@ -184,3 +191,44 @@ search.addEventListener("input", filterAllParams);
 for (const filter in filterMap) {
   filterMap[filter].addEventListener("input", filterAllParams);
 }
+
+/* Chosen */
+
+const chosenContainer = document.getElementById("chosen-container");
+const chosenIds = [];
+
+const createChosenCards = (chosenIds) => {
+  console.log("chosenIds", chosenIds);
+  chosenIds.forEach((chosenId) => {
+    const chosen = characters.find((character) => chosenId === character.id);
+
+    const card = document.createElement("div");
+    card.classList.add("chosen-card");
+
+    const avatar = document.createElement("img");
+    img.setAttribute("src", chosen.image);
+
+    const textElement = document.createElement("p");
+    const text = document.createTextNode(chosen.name);
+    textElement.appendChild(text);
+
+    card.appendChild(avatar);
+    card.appendChild(textElement);
+
+    chosenContainer.appendChild(card);
+  });
+};
+
+const chooseCharacter = (e) => {
+  chosenIds.push(parseInt(e.target.id));
+  createChosenCards(chosenIds);
+};
+
+const addEventListenerToChooseButtons = () => {
+  const chooseButtons = document.getElementsByClassName("choose-button");
+  Array.from(chooseButtons).forEach((button) => {
+    button.addEventListener("click", chooseCharacter);
+  });
+};
+
+addEventListenerToChooseButtons();

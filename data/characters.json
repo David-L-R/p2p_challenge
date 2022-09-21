@@ -6,6 +6,7 @@
     "species": "Human",
     "type": "",
     "gender": "Male",
+    "points": 8500,
     "origin": {
       "name": "Earth (C-137)",
       "url": "https://rickandmortyapi.com/api/location/1"
@@ -82,6 +83,7 @@
       "name": "unknown",
       "url": ""
     },
+    "points": 250,
     "location": {
       "name": "Citadel of Ricks",
       "url": "https://rickandmortyapi.com/api/location/3"
@@ -150,6 +152,7 @@
     "species": "Human",
     "type": "",
     "gender": "Female",
+    "points": 1250,
     "origin": {
       "name": "Earth (Replacement Dimension)",
       "url": "https://rickandmortyapi.com/api/location/20"
@@ -213,6 +216,7 @@
     "species": "Human",
     "type": "",
     "gender": "Female",
+    "points": 2750,
     "origin": {
       "name": "Earth (Replacement Dimension)",
       "url": "https://rickandmortyapi.com/api/location/20"
@@ -276,6 +280,7 @@
     "species": "Human",
     "type": "",
     "gender": "Male",
+    "points": -1500,
     "origin": {
       "name": "Earth (Replacement Dimension)",
       "url": "https://rickandmortyapi.com/api/location/20"
@@ -336,6 +341,7 @@
     "species": "Alien",
     "type": "",
     "gender": "Female",
+    "points": 750,
     "origin": {
       "name": "Abadango",
       "url": "https://rickandmortyapi.com/api/location/2"
@@ -356,6 +362,7 @@
     "species": "Human",
     "type": "Genetic experiment",
     "gender": "Male",
+    "points": 450,
     "origin": {
       "name": "Earth (Replacement Dimension)",
       "url": "https://rickandmortyapi.com/api/location/20"
@@ -379,6 +386,7 @@
     "species": "Human",
     "type": "",
     "gender": "Male",
+    "points": 3250,
     "origin": {
       "name": "unknown",
       "url": ""
@@ -399,6 +407,7 @@
     "species": "Human",
     "type": "",
     "gender": "Male",
+    "points": 850,
     "origin": {
       "name": "Earth (Replacement Dimension)",
       "url": "https://rickandmortyapi.com/api/location/20"
@@ -419,6 +428,7 @@
     "species": "Human",
     "type": "Superhuman (Ghost trains summoner)",
     "gender": "Male",
+    "points": 950,
     "origin": {
       "name": "unknown",
       "url": ""
@@ -439,6 +449,7 @@
     "species": "Human",
     "type": "",
     "gender": "Male",
+    "points": 1500,
     "origin": {
       "name": "Earth (C-137)",
       "url": "https://rickandmortyapi.com/api/location/1"
@@ -459,6 +470,7 @@
     "species": "Human",
     "type": "",
     "gender": "Male",
+    "points": -450,
     "origin": {
       "name": "Earth (C-137)",
       "url": "https://rickandmortyapi.com/api/location/1"
@@ -477,6 +489,7 @@
     "name": "Alien Googah",
     "status": "unknown",
     "species": "Alien",
+    "points": -400,
     "type": "",
     "gender": "unknown",
     "origin": {
@@ -499,6 +512,7 @@
     "species": "Alien",
     "type": "",
     "gender": "Male",
+    "points": 200,
     "origin": {
       "name": "unknown",
       "url": ""
@@ -519,6 +533,7 @@
     "species": "Alien",
     "type": "",
     "gender": "Male",
+    "points": 2750,
     "origin": {
       "name": "unknown",
       "url": ""
@@ -539,6 +554,7 @@
     "species": "Alien",
     "type": "Parasite",
     "gender": "Male",
+    "points": 150,
     "origin": {
       "name": "unknown",
       "url": ""
@@ -559,6 +575,7 @@
     "species": "Human",
     "type": "",
     "gender": "Female",
+    "points": 550,
     "origin": {
       "name": "Earth (C-137)",
       "url": "https://rickandmortyapi.com/api/location/1"
@@ -579,6 +596,7 @@
     "species": "Human",
     "type": "Human with antennae",
     "gender": "Male",
+    "points": 150,
     "origin": {
       "name": "unknown",
       "url": ""
@@ -597,31 +615,12 @@
   },
   {
     "id": 19,
-    "name": "Antenna Rick",
-    "status": "unknown",
-    "species": "Human",
-    "type": "Human with antennae",
-    "gender": "Male",
-    "origin": {
-      "name": "unknown",
-      "url": ""
-    },
-    "location": {
-      "name": "unknown",
-      "url": ""
-    },
-    "image": "https://rickandmortyapi.com/api/character/avatar/19.jpeg",
-    "episode": ["https://rickandmortyapi.com/api/episode/10"],
-    "url": "https://rickandmortyapi.com/api/character/19",
-    "created": "2017-11-04T22:28:13.756Z"
-  },
-  {
-    "id": 20,
     "name": "Ants in my Eyes Johnson",
     "status": "unknown",
     "species": "Human",
     "type": "Human with ants in his eyes",
     "gender": "Male",
+    "points": -300,
     "origin": {
       "name": "unknown",
       "url": ""
