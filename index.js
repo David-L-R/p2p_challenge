@@ -222,6 +222,7 @@ const createCards = () => {
 };
 
 createCards();
+// printCards(characters);
 
 const chooseCharacter = (e) => {
   chosenIds.push(parseInt(e.target.id));
