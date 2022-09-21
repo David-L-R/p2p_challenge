@@ -6,6 +6,8 @@ To complete this challenge you will have to fix all known bugs (and maybe unknow
 
 Later, you will be reviewing each other's code and thus, you should write all code in a new bracnh.
 
+## GIT
+
 In order to create a new branch you can code in, follow the instructions:
 ```base
 # Create a new bracnh
@@ -25,4 +27,8 @@ $ git push -u origin solution
 # any next update
 $ git push
 ```
+
+## Design
+
+<img width="1917" alt="design" src="https://user-images.githubusercontent.com/31222514/191509476-1473e462-ba15-47f4-9701-ad8abb7e14b9.png">
 
