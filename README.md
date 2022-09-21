@@ -8,15 +8,26 @@ Later, you will be reviewing each other's code and thus, you should write all co
 
 ## GIT
 
+Start by forking the repository:
+
+Then clone it:
+
+```bash
+$ git clone <link_to_repo>
+```
+
 In order to create a new branch you can code in, follow the instructions:
+
 ```base
 # Create a new bracnh
 $ git checkout -b solution
 ```
+
 Every time you complete a bug or create a feature:
+
 ```bash
 # stage files
-$ git add . 
+$ git add .
 
 # save changes
 $ git commit -m"<which bug/feature you solved>"
@@ -35,3 +46,5 @@ $ git push
 - Green: The navbar have dropdowns and a search bar that will filter the list of characters
 - Blue: Each character has a "choose" button. Pressing on it will remove the character from the main list and move it to the "chosen" list
 - Red: Each chosen character has a "remove" button. Pressing on it will remove it from the "chosen" list and put it back into the main list
+
+## Bugs
