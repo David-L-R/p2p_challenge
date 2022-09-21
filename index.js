@@ -1,5 +1,7 @@
 import characters from "./data/characters.json" assert { type: "json" };
 
+console.log("test");
+
 /* ELEMENTS */
 const characterContainer = document.getElementById("character-container");
 const genderFilter = document.getElementById("gender");
