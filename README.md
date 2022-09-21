@@ -9,8 +9,14 @@ Later, you will be reviewing each other's code and thus, you should write all co
 ## GIT
 
 Start by forking the repository:
+<img width="1920" alt="fork the repo" src="https://user-images.githubusercontent.com/31222514/191513308-049b4ef7-cde8-42d4-b53c-f9a6ae67ef26.png">
+
+
 
 Then clone it:
+
+<img width="1918" alt="clone" src="https://user-images.githubusercontent.com/31222514/191513317-103cebe5-3773-4503-be00-9ef3fab9b5ef.png">
+
 
 ```bash
 $ git clone <link_to_repo>
