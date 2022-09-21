@@ -16,7 +16,6 @@ const filterMap = {
 /* CONSTANTS */
 
 const SELECT_ALL_TEXT = "Select all";
-const MINIMUM_NUMBER_OF_CHARACTERS = 4;
 
 /* Variables */
 let chosenIds = [];
