@@ -258,7 +258,7 @@ const removeCharacter = (e) => {
 };
 
 //  INITIALIZE
-createCards(characters);
+createCards();
 
 search.addEventListener("input", createCards);
 for (const filter in filterMap) {
