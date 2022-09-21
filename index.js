@@ -81,57 +81,30 @@ const cleanCardContainer = () => {
   characterContainer.innerHTML = "";
 };
 
-/* FILTER */
-
-const filterAllParams = () => {
-  let filtered = [...filteredCharactersBySearch(search.value)];
-
-  for (const filterType in filterMap) {
-    filtered = filterBy(filtered, filterMap[filterType], filterType);
-  }
-
-  return filtered.filter((character) => !chosenIds.includes(character.id));
-};
-
-/* SEARCH */
-const filteredCharactersBySearch = (value) => {
-  if (value === "" || value.length < MINIMUM_NUMBER_OF_CHARACTERS) {
-    return characters;
-  }
-  const searchWord = value;
-  const filtered = characters.filter((character) =>
-    character.name.toLowerCase().includes(searchWord.toLowerCase())
-  );
-
-  return filtered;
-};
-
 /* SELECT */
 
 const getOptions = () => {
-  let gender = characters.map((character) => character.gender);
-  let status = characters.map((character) => character.status);
-  let species = characters.map((character) => character.species);
-
-  const uniqeGenders = new Set(gender);
-  const uniqeStatus = new Set(status);
-  const uniqeSpecies = new Set(species);
-
-  gender = Array.from(uniqeGenders);
-  status = Array.from(uniqeStatus);
-  species = Array.from(uniqeSpecies);
-
-  return {
-    gender,
-    status,
-    species,
+  const options = {
+    gender: [],
+    status: [],
+    species: [],
   };
+
+  const { gender, status, species } = options;
+
+  characters.forEach((character) => {
+    gender.push(character.gender);
+    status.push(character.status);
+    species.push(character.species);
+  });
+
+  return options;
 };
 
 const createOptionNodes = (filterOptions, appendToElement) => {
   // select all
   const selectAllOption = document.createElement("option");
-  selectAllOption.setAttribute("value", null);
+  selectAllOption.setAttribute("value", "all");
   const optionText = document.createTextNode(SELECT_ALL_TEXT);
   selectAllOption.appendChild(optionText);
   appendToElement.appendChild(selectAllOption);
@@ -155,18 +128,6 @@ const createOptions = () => {
 };
 
 createOptions();
-
-/* FILTER */
-const filterBy = (array, filter, filterType) => {
-  return array.filter((character) => {
-    return (
-      filter.options[filter.selectedIndex].text.toLowerCase() ===
-        SELECT_ALL_TEXT.toLowerCase() ||
-      character[filterType].toLowerCase() ===
-        filter.options[filter.selectedIndex].text.toLowerCase()
-    );
-  });
-};
 
 /* CHOSEN SECTION */
 const chosenContainer = document.getElementById("chosen-container");
@@ -215,7 +176,7 @@ const addEventListenerToChooseButtons = () => {
 const addEventListenerToRemoveButtons = () => {
   const chooseButtons = document.getElementsByClassName("remove-button");
   Array.from(chooseButtons).forEach((button) => {
-    button.addEventListener("click", removeCharacter);
+    button.addEventListener("click", () => {});
   });
 };
 
@@ -223,9 +184,29 @@ const addEventListenerToRemoveButtons = () => {
 const createCards = () => {
   cleanCardContainer();
 
-  const filtered = filterAllParams();
+  let filtered = [...characters];
 
-  if (filtered.length === 0 && chosenIds.length !== characters.length) {
+  filtered = filtered.filter(
+    (character) => character.gender === genderFilter.value
+  );
+
+  filtered = filtered.filter(
+    (character) => character.status === statusFilter.value
+  );
+
+  filtered = filtered.filter(
+    (character) => character.species === speciesFilter.value
+  );
+
+  filtered = filtered.filter((character) =>
+    character.name.toLowerCase().includes(search.value.toLowerCase())
+  );
+
+  filtered.filter((character) => {
+    !chosenIds.includes(character.id);
+  });
+
+  if (filtered.length === 0) {
     const textElement = document.createElement("p");
     const text = document.createTextNode("No character matches the filter");
     textElement.appendChild(text);
@@ -235,15 +216,13 @@ const createCards = () => {
     return;
   }
 
-  printCards(filtered);
+  printCards(characters);
   addEventListenerToChooseButtons();
   addEventListenerToRemoveButtons();
 };
 
 const chooseCharacter = (e) => {
   chosenIds.push(parseInt(e.target.id));
-  const uniqeIds = new Set(chosenIds);
-  chosenIds = Array.from(uniqeIds);
   createChosenCards(chosenIds);
   createCards();
 };
@@ -252,7 +231,6 @@ const removeCharacter = (e) => {
   chosenIds = chosenIds.filter(
     (chosenId) => chosenId !== parseInt(e.target.id)
   );
-
   createChosenCards(chosenIds);
   createCards();
 };

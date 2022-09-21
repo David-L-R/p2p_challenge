@@ -69,3 +69,75 @@ For example, in the Gender dropdown, instead of:
 - unknown
 
 We have many male... many females...
+
+### Bug 3 - Filters don't work
+
+Choosing one of the options does not filter the cards..
+When choosing something for each input, all characters are shown.
+
+### Bug 4 - Choosing does not remove from list
+
+Choosing a character should remove it from list
+
+### Bug 5 - Remove button
+
+Pressing on remove button, does not remove the character from the "chosen" list.
+
+## Refactoring
+
+### Refactor - createCards() function
+
+In this function we are filtering over and over again.
+
+Refactor the function in a way that will allow you to filter according to all inputs without filtering more than once.
+
+## Features
+
+### Feature 1 - Limit the number of characters in the team
+
+When choosing characters, prevent the user from choosing more than 5 characters.
+Make sure to give proper feedback to the user about it.
+
+### Feature 2 - Limit the amount of point in a team
+
+When choosing characters for a team, prevent the user from choosing characters that together, their points are higher than 10000.
+
+So for example, we can choose for a team:
+
+- Rick (8500 points)
+- Morty (250 points)
+- Summer (1250 points)
+
+Because together they have 10000.
+
+But you cannot choose:
+
+- Rick (8500 points)
+- Beth (2750 points)
+
+Because together they have more than 10000 points
+
+### Feature 3 - Create missions
+
+Create 3 different missions, which each require minimum amount of points. Once the user thinks they are ready, they can go on a mission (press on a button for a mission).
+
+If the team's points are not enough, the user should be receive a feedback that the mission was failed.
+
+If the points are high enough, they should receive a feedback that the mission was successful.
+
+### More Features
+
+This is up to you. There are so many things to do!
+Feel free to add information to the data, if you want to create more complicated stuff.
+
+For example:
+
+Before starting a mission, you choose the position of each character.
+There can be 4 positions:
+
+- driver
+- gun-man
+- shield
+- other
+
+We divide by 2 the number of points of the driver, and triple the number of points of the gun-man. Just to make it more interesting...
