@@ -1,3 +1,5 @@
+![rick and morty hero](https://user-images.githubusercontent.com/31222514/191508663-af4f0fea-709c-4b0b-99f7-4e7fe3ae5b85.jpg)
+
 # The Rick & Morty Challenge
 
 To complete this challenge you will have to fix all known bugs (and maybe unknown bugs as well!) and add different features.
