@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Rick and Morty</title>
+  </head>
+  <body>
+    <nav>
+      <form>
+        <input name="search" id="search" placeholder="search" />
+        <label for="gender">
+          Gender
+          <select name="gender" id="gender"></select>
+        </label>
+        <label for="status">
+          Status
+          <select name="status" id="status"></select>
+        </label>
+        <label for="species">
+          Species
+          <select name="species" id="species"></select>
+        </label>
+      </form>
+    </nav>
+    <div id="main">
+      <section id="chosen-container"></section>
+      <section id="character-container"></section>
+    </div>
+    <footer>
+      <img src="./assets/avatar.png" />
+      <p>Created by David L. Rajcher</p>
+    </footer>
+
+    <script type="module" src="index.js"></script>
+  </body>
+</html>
