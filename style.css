@@ -1,5 +1,6 @@
 * {
   box-sizing: border-box;
+  font-family: sans-serif;
 }
 
 html,
@@ -64,4 +65,27 @@ nav form {
 .card button {
   padding: 12px 20px;
   cursor: pointer;
+}
+
+#chosen-container {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  padding: 20px;
+}
+
+.chosen-card {
+  background-color: white;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  transition: 0.3s;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  width: max-content;
+  padding: 5px 20px;
+}
+
+.chosen-card img {
+  height: 40px;
+  border-radius: 50%;
 }

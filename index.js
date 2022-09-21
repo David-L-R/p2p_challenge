@@ -20,17 +20,7 @@ const MINIMUM_NUMBER_OF_CHARACTERS = 4;
 
 /* ADD/REMOVE CARDS */
 
-const createCards = (characters) => {
-  cleanCardContainer();
-
-  if (characters.length === 0) {
-    const textElement = document.createElement("p");
-    const text = document.createTextNode("No character matches the filter");
-    textElement.appendChild(text);
-    characterContainer.appendChild(textElement);
-    return;
-  }
-
+const printCards = (characters) => {
   characters.forEach((character) => {
     const { id, name, image, status, species, gender, points } = character;
     const card = document.createElement("div");
@@ -88,9 +78,6 @@ const cleanCardContainer = () => {
   characterContainer.innerHTML = "";
 };
 
-// initialize the page
-createCards(characters);
-
 /* FILTER */
 
 const filterAllParams = () => {
@@ -100,7 +87,9 @@ const filterAllParams = () => {
     filtered = filterBy(filtered, filterMap[filterType], filterType);
   }
 
-  createCards(filtered);
+  console.log(filtered);
+
+  return filtered;
 };
 
 /* SEARCH */
@@ -167,38 +156,57 @@ const createOptions = () => {
 createOptions();
 
 const filterBy = (array, filter, filterType) => {
-  console.log(array, filter, filterType);
+  // console.log(array, filter, filterType);
   return array.filter((character) => {
-    // console.log(filter.options[filter.selectedIndex].text.toLowerCase());
-    console.log("here");
-    if (
-      filter.options[filter.selectedIndex].text.toLowerCase() ===
-      SELECT_ALL_TEXT.toLowerCase()
-    ) {
-      return true;
-    }
-
     return (
+      filter.options[filter.selectedIndex].text.toLowerCase() ===
+        SELECT_ALL_TEXT.toLowerCase() ||
       character[filterType].toLowerCase() ===
-      filter.options[filter.selectedIndex].text.toLowerCase()
+        filter.options[filter.selectedIndex].text.toLowerCase()
     );
   });
 };
 
+const createCards = () => {
+  cleanCardContainer();
+
+  const filtered = characters.filter(
+    (character) => !chosenIds.includes(character.id)
+  );
+  if (filtered.length === 0 && chosenIds.length !== characters.length) {
+    const textElement = document.createElement("p");
+    const text = document.createTextNode("No character matches the filter");
+    textElement.appendChild(text);
+    characterContainer.appendChild(textElement);
+    return;
+  }
+  printCards(filterAllParams());
+};
+
+// initialize the page
+let chosenIds = [];
+createCards(characters);
+
 /* Event Listeners */
 
-search.addEventListener("input", filterAllParams);
+// search.addEventListener("input", filterAllParams);
+search.addEventListener("input", createCards);
 for (const filter in filterMap) {
-  filterMap[filter].addEventListener("input", filterAllParams);
+  // filterMap[filter].addEventListener("input", filterAllParams);
+  filterMap[filter].addEventListener("input", createCards);
 }
 
 /* Chosen */
 
 const chosenContainer = document.getElementById("chosen-container");
-const chosenIds = [];
+// let chosenIds = [];
+
+const cleanChosenContainer = () => {
+  chosenContainer.innerHTML = "";
+};
 
 const createChosenCards = (chosenIds) => {
-  console.log("chosenIds", chosenIds);
+  cleanChosenContainer();
   chosenIds.forEach((chosenId) => {
     const chosen = characters.find((character) => chosenId === character.id);
 
@@ -206,14 +214,21 @@ const createChosenCards = (chosenIds) => {
     card.classList.add("chosen-card");
 
     const avatar = document.createElement("img");
-    img.setAttribute("src", chosen.image);
+    avatar.setAttribute("src", chosen.image);
 
     const textElement = document.createElement("p");
     const text = document.createTextNode(chosen.name);
     textElement.appendChild(text);
 
+    const button = document.createElement("button");
+    const textButton = document.createTextNode("Remove");
+    card.classList.add("remove-button");
+    button.setAttribute("id", chosen.id);
+    button.appendChild(textButton);
+
     card.appendChild(avatar);
     card.appendChild(textElement);
+    card.appendChild(button);
 
     chosenContainer.appendChild(card);
   });
@@ -221,7 +236,25 @@ const createChosenCards = (chosenIds) => {
 
 const chooseCharacter = (e) => {
   chosenIds.push(parseInt(e.target.id));
+  const uniqeIds = new Set(chosenIds);
+  chosenIds = Array.from(uniqeIds);
   createChosenCards(chosenIds);
+  createCards();
+  addEventListenerToChooseButtons();
+  addEventListenerToRemoveButtons();
+};
+
+const removeCharacter = (e) => {
+  console.log(e.target.id);
+  chosenIds = chosenIds.filter(
+    (chosenId) => chosenId !== parseInt(e.target.id)
+  );
+  console.log(chosenIds);
+  createChosenCards(chosenIds);
+
+  createCards(filtered);
+  addEventListenerToChooseButtons();
+  addEventListenerToRemoveButtons();
 };
 
 const addEventListenerToChooseButtons = () => {
@@ -231,4 +264,12 @@ const addEventListenerToChooseButtons = () => {
   });
 };
 
+const addEventListenerToRemoveButtons = () => {
+  const chooseButtons = document.getElementsByClassName("remove-button");
+  Array.from(chooseButtons).forEach((button) => {
+    button.addEventListener("click", removeCharacter);
+  });
+};
+
 addEventListenerToChooseButtons();
+addEventListenerToRemoveButtons();
