@@ -32,3 +32,6 @@ $ git push
 
 <img width="1917" alt="design" src="https://user-images.githubusercontent.com/31222514/191509476-1473e462-ba15-47f4-9701-ad8abb7e14b9.png">
 
+- Green: The navbar have dropdowns and a search bar that will filter the list of characters
+- Blue: Each character has a "choose" button. Pressing on it will remove the character from the main list and move it to the "chosen" list
+- Red: Each chosen character has a "remove" button. Pressing on it will remove it from the "chosen" list and put it back into the main list
