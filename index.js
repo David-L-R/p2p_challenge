@@ -1,4 +1,5 @@
-import characters from "./data/characters.json" assert { type: "json" };
+//import characters from "./data/characters.json" assert { type: "json" };
+const characters = await fetch("./data/characters.json").then(data => data.json());
 
 /* ELEMENTS */
 const characterContainer = document.getElementById("character-container");
@@ -238,3 +239,5 @@ search.addEventListener("input", createCards);
 for (const filter in filterMap) {
   filterMap[filter].addEventListener("input", createCards);
 }
+
+printCards(characters);
