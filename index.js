@@ -93,9 +93,16 @@ const getOptions = () => {
   const { gender, status, species } = options;
 
   characters.forEach((character) => {
+  /*
     gender.push(character.gender);
     status.push(character.status);
     species.push(character.species);
+    */
+    for (let option in options) {
+      if (!options[option].includes(character[option])) {
+        options[option].push(character[option]);
+      }
+    }
   });
 
   return options;
