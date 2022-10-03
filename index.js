@@ -172,36 +172,39 @@ const createCards = () => {
 
   let filtered = [...characters];
 
-  // filtered === characters
-  // rick, morty, summer... === rick, morty, summer
+  if (genderFilter.value !== "all") {
+    filtered = filtered.filter(
+      (character) => character.gender === genderFilter.value
+    );
+  }
 
-  // filtered = filtered.filter(
-  //   (character) => character.gender === genderFilter.value
-  // );
+  if (statusFilter.value !== "all") {
+    filtered = filtered.filter(
+      (character) => character.status === statusFilter.value
+    );
+  }
 
-  // filtered = filtered.filter(
-  //   (character) => character.status === statusFilter.value
-  // );
+  if (speciesFilter.value !== "all") {
+    filtered = filtered.filter(
+      (character) => character.species === speciesFilter.value
+    );
+  }
 
-  // filtered = filtered.filter(
-  //   (character) => character.species === speciesFilter.value
-  // );
-
-  // filtered = filtered.filter((character) =>
-  //   character.name.toLowerCase().includes(search.value.toLowerCase())
-  // );
+  filtered = filtered.filter((character) =>
+    character.name.toLowerCase().includes(search.value.toLowerCase())
+  );
 
   filtered = filtered.filter((character) => !chosenIds.includes(character.id));
 
-  // if (filtered.length === 0) {
-  //   const textElement = document.createElement("p");
-  //   const text = document.createTextNode("No character matches the filter");
-  //   textElement.appendChild(text);
-  //   characterContainer.appendChild(textElement);
-  //   addEventListenerToChooseButtons();
-  //   addEventListenerToRemoveButtons();
-  //   return;
-  // }
+  if (filtered.length === 0) {
+    const textElement = document.createElement("p");
+    const text = document.createTextNode("No character matches the filter");
+    textElement.appendChild(text);
+    characterContainer.appendChild(textElement);
+    addEventListenerToChooseButtons();
+    addEventListenerToRemoveButtons();
+    return;
+  }
 
   printCards(filtered);
   addEventListenerToChooseButtons();
@@ -243,5 +246,5 @@ for (const filter in filterMap) {
 }
 
 // INIT (ON PAGE LOAD)
-createCards();
 createOptions();
+createCards();
