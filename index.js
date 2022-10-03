@@ -97,6 +97,10 @@ const getOptions = () => {
     species.push(character.species);
   });
 
+  options.gender = [...new Set(options.gender)];
+  options.status = [...new Set(options.status)];
+  options.species = [...new Set(options.species)];
+
   return options;
 };
 
