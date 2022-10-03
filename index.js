@@ -163,10 +163,13 @@ const createChosenCards = (chosenIds) => {
 };
 
 // CREATE CARDS
-const createCards = (characters) => {
+const createCards = () => {
   cleanCardContainer();
 
   let filtered = [...characters];
+
+  // filtered === characters
+  // rick, morty, summer... === rick, morty, summer
 
   // filtered = filtered.filter(
   //   (character) => character.gender === genderFilter.value
@@ -184,9 +187,7 @@ const createCards = (characters) => {
   //   character.name.toLowerCase().includes(search.value.toLowerCase())
   // );
 
-  // filtered.filter((character) => {
-  //   !chosenIds.includes(character.id);
-  // });
+  filtered = filtered.filter((character) => !chosenIds.includes(character.id));
 
   // if (filtered.length === 0) {
   //   const textElement = document.createElement("p");
@@ -206,16 +207,12 @@ const createCards = (characters) => {
 const chooseCharacter = (e) => {
   chosenIds.push(parseInt(e.target.id));
   createChosenCards(chosenIds);
-
-  const filtered = characters.filter(
-    (character) => !chosenIds.includes(character.id)
-  );
-  createCards(filtered);
+  createCards();
 };
 
-const removeCharacter = (e) => {
+const removeCharacter = (event) => {
   chosenIds = chosenIds.filter(
-    (chosenId) => chosenId !== parseInt(e.target.id)
+    (chosenId) => chosenId !== parseInt(event.target.id)
   );
   createChosenCards(chosenIds);
   createCards();
@@ -232,7 +229,7 @@ const addEventListenerToChooseButtons = () => {
 const addEventListenerToRemoveButtons = () => {
   const chooseButtons = document.getElementsByClassName("remove-button");
   Array.from(chooseButtons).forEach((button) => {
-    button.addEventListener("click", () => {});
+    button.addEventListener("click", removeCharacter);
   });
 };
 
@@ -242,5 +239,5 @@ for (const filter in filterMap) {
 }
 
 // INIT (ON PAGE LOAD)
-createCards(characters);
+createCards();
 createOptions();
