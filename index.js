@@ -20,7 +20,7 @@ const SELECT_ALL_TEXT = "Select all";
 /* Variables */
 let chosenIds = [];
 
-/* ADD/REMOVE CARDS */
+/* PRINT CARDS */
 
 const printCards = (characters) => {
   characters.forEach((character) => {
@@ -126,8 +126,6 @@ const createOptions = () => {
   }
 };
 
-createOptions();
-
 /* CHOSEN SECTION */
 const chosenContainer = document.getElementById("chosen-container");
 
@@ -164,58 +162,43 @@ const createChosenCards = (chosenIds) => {
   });
 };
 
-// EVENT LISTENERS
-const addEventListenerToChooseButtons = () => {
-  const chooseButtons = document.getElementsByClassName("choose-button");
-  Array.from(chooseButtons).forEach((button) => {
-    button.addEventListener("click", chooseCharacter);
-  });
-};
-
-const addEventListenerToRemoveButtons = () => {
-  const chooseButtons = document.getElementsByClassName("remove-button");
-  Array.from(chooseButtons).forEach((button) => {
-    button.addEventListener("click", () => {});
-  });
-};
-
 // CREATE CARDS
 const createCards = () => {
   cleanCardContainer();
 
   let filtered = [...characters];
 
-  filtered = filtered.filter(
-    (character) => character.gender === genderFilter.value
-  );
+  // filtered = filtered.filter(
+  //   (character) => character.gender === genderFilter.value
+  // );
 
-  filtered = filtered.filter(
-    (character) => character.status === statusFilter.value
-  );
+  // filtered = filtered.filter(
+  //   (character) => character.status === statusFilter.value
+  // );
 
-  filtered = filtered.filter(
-    (character) => character.species === speciesFilter.value
-  );
+  // filtered = filtered.filter(
+  //   (character) => character.species === speciesFilter.value
+  // );
 
-  filtered = filtered.filter((character) =>
-    character.name.toLowerCase().includes(search.value.toLowerCase())
-  );
+  // filtered = filtered.filter((character) =>
+  //   character.name.toLowerCase().includes(search.value.toLowerCase())
+  // );
 
-  filtered.filter((character) => {
-    !chosenIds.includes(character.id);
-  });
+  // filtered.filter((character) => {
+  //   !chosenIds.includes(character.id);
+  // });
 
-  if (filtered.length === 0) {
-    const textElement = document.createElement("p");
-    const text = document.createTextNode("No character matches the filter");
-    textElement.appendChild(text);
-    characterContainer.appendChild(textElement);
-    addEventListenerToChooseButtons();
-    addEventListenerToRemoveButtons();
-    return;
-  }
+  // if (filtered.length === 0) {
+  //   const textElement = document.createElement("p");
+  //   const text = document.createTextNode("No character matches the filter");
+  //   textElement.appendChild(text);
+  //   characterContainer.appendChild(textElement);
+  //   addEventListenerToChooseButtons();
+  //   addEventListenerToRemoveButtons();
+  //   return;
+  // }
 
-  printCards(characters);
+  printCards(filtered);
   addEventListenerToChooseButtons();
   addEventListenerToRemoveButtons();
 };
@@ -234,7 +217,26 @@ const removeCharacter = (e) => {
   createCards();
 };
 
+// EVENT LISTENERS
+const addEventListenerToChooseButtons = () => {
+  const chooseButtons = document.getElementsByClassName("choose-button");
+  Array.from(chooseButtons).forEach((button) => {
+    button.addEventListener("click", chooseCharacter);
+  });
+};
+
+const addEventListenerToRemoveButtons = () => {
+  const chooseButtons = document.getElementsByClassName("remove-button");
+  Array.from(chooseButtons).forEach((button) => {
+    button.addEventListener("click", () => {});
+  });
+};
+
 search.addEventListener("input", createCards);
 for (const filter in filterMap) {
   filterMap[filter].addEventListener("input", createCards);
 }
+
+// INIT (ON PAGE LOAD)
+createCards();
+createOptions();
