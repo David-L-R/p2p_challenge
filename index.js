@@ -163,7 +163,7 @@ const createChosenCards = (chosenIds) => {
 };
 
 // CREATE CARDS
-const createCards = () => {
+const createCards = (characters) => {
   cleanCardContainer();
 
   let filtered = [...characters];
@@ -206,7 +206,11 @@ const createCards = () => {
 const chooseCharacter = (e) => {
   chosenIds.push(parseInt(e.target.id));
   createChosenCards(chosenIds);
-  createCards();
+
+  const filtered = characters.filter(
+    (character) => !chosenIds.includes(character.id)
+  );
+  createCards(filtered);
 };
 
 const removeCharacter = (e) => {
@@ -238,5 +242,5 @@ for (const filter in filterMap) {
 }
 
 // INIT (ON PAGE LOAD)
-createCards();
+createCards(characters);
 createOptions();
