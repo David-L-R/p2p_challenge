@@ -26,7 +26,7 @@ let chosenIds = [];
 
 const printCards = (characters) => {
   characters.forEach((character) => {
-    console.log(character);
+    
     const { id, name, image, status, species, gender, points } = character;
     const card = document.createElement("div");
     card.classList.add("card");
@@ -109,7 +109,7 @@ const createOptionNodes = (filterOptions, appendToElement) => {
   selectAllOption.setAttribute("value", "all");
   const optionText = document.createTextNode(SELECT_ALL_TEXT);
   selectAllOption.appendChild(optionText);
-  console.log("?"+selectAllOption)
+  
   appendToElement.appendChild(selectAllOption);
 
   filterOptions.forEach((option) => {
@@ -149,17 +149,11 @@ const createOptions = () => {
     
   }
   options.status = [...optionsSetStatus]
-  // for (let optionType in options.gender) {
-  //   console.log(optionType)
-  //   //set to solve
-  //   optionsSetGender.add(optionType);
-  //   console.log(optionsSetGender.size) 
-  //   //createOptionNodes(options[optionType], filterMap[optionType]);
-  // }
-  console.log(options)
+  
+  
   for (let optionType in options) {
     //set to solve
-    console.log(filterMap[optionType])
+    
     createOptionNodes(options[optionType], filterMap[optionType]);
   }
 
@@ -220,39 +214,39 @@ const addEventListenerToRemoveButtons = () => {
 
 // CREATE CARDS
 const createCards = () => {
-  //cleanCardContainer();
+  cleanCardContainer();
 
   let filtered = [...characters];
 
-  // filtered = filtered.filter(
-  //   (character) => character.gender === genderFilter.value
-  // );
+  filtered = filtered.filter(
+    (character) => character.gender === genderFilter.value
+  );
 
-  // filtered = filtered.filter(
-  //   (character) => character.status === statusFilter.value
-  // );
+  filtered = filtered.filter(
+    (character) => character.status === statusFilter.value
+  );
 
-  // filtered = filtered.filter(
-  //   (character) => character.species === speciesFilter.value
-  // );
+  filtered = filtered.filter(
+    (character) => character.species === speciesFilter.value
+  );
 
-  // filtered = filtered.filter((character) =>
-  //   character.name.toLowerCase().includes(search.value.toLowerCase())
-  // );
+  filtered = filtered.filter((character) =>
+    character.name.toLowerCase().includes(search.value.toLowerCase())
+  );
 
-  // filtered.filter((character) => {
-  //   !chosenIds.includes(character.id);
-  // });
+  filtered.filter((character) => {
+    !chosenIds.includes(character.id);
+  });
 
-  // if (filtered.length === 0) {
-  //   const textElement = document.createElement("p");
-  //   const text = document.createTextNode("No character matches the filter");
-  //   textElement.appendChild(text);
-  //   characterContainer.appendChild(textElement);
-  //   addEventListenerToChooseButtons();
-  //   addEventListenerToRemoveButtons();
-  //   return;
-  // }
+  if (filtered.length === 0) {
+    const textElement = document.createElement("p");
+    const text = document.createTextNode("No character matches the filter");
+    textElement.appendChild(text);
+    characterContainer.appendChild(textElement);
+    addEventListenerToChooseButtons();
+    addEventListenerToRemoveButtons();
+    return;
+  }
 
   printCards(characters);
   addEventListenerToChooseButtons();
